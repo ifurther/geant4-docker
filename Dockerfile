@@ -1,6 +1,6 @@
 ARG IMAGE_FROM=base
 
-FROM geant4/${IMAGE_FROM}
+FROM ifurther/geant4:${IMAGE_FROM}
 LABEL maintainer="Further Lin <geant4ro.ot@gmail.com>"
 
 RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1tw.\2/" /etc/apt/sources.list 
