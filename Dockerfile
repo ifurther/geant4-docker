@@ -33,8 +33,7 @@ cmake -DCMAKE_INSTALL_PREFIX=${G4DIR}/geant4.${shortG4version}-install \
 -DGEANT4_USE_QT=ON -DGEANT4_USESYSTEM_ZLIB=ON -DGEANT4_USESYSTEM_EXPAT=ON ${G4DIR}/geant4.${G4Version}
 
 RUN cd ${G4DIR}/geant4.${shortG4version}-build && \
-make -j`grep -c ^processor /proc/cpuinfo`
-
-RUN make install 
+make -j`grep -c ^processor /proc/cpuinfo` &&\
+make install 
 
 RUN ls $G4DIR/geant4.${G4Version}-install
