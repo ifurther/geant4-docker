@@ -25,7 +25,7 @@ tar zxvf geant4.${G4Version}.tar.gz -C ${G4DIR}; \
 rm -rf geant4.${G4Version}.tar.gz; fi
 
 
-RUN bash -c 'if [ ! -e geant4.${shortG4version}-install ] ; then mkdir ${G4DIR}/geant4.${shortG4version}-build; else mkdir ${G4DIR}/geant4.${shortG4version}-{build,install}; fi'
+RUN bash -c 'if [ -e geant4.${shortG4version}-install ] ; then mkdir ${G4DIR}/geant4.${shortG4version}-build; else mkdir ${G4DIR}/geant4.${shortG4version}-{build,install}; fi'
 
 RUN cd ${G4DIR}/geant4.${shortG4version}-build && \
 cmake -DCMAKE_INSTALL_PREFIX=${G4DIR}/geant4.${shortG4version}-install \
