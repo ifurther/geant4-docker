@@ -45,7 +45,7 @@ exec "$@" \n'\
 RUN chmod +x $G4WKDIR/entry-point.sh 
 
 # only for Geant4-10.5.1
-RUN sed -i 's/g4ios/G4ios/g'  G4DIR/share/Geant4-${shortG4version}/examples/extended/parallel/MPI/source/src/G4MPIextraWorker.cc
+RUN sed -i 's/g4ios/G4ios/g'  $G4DIR/share/Geant4-${shortG4version}/examples/extended/parallel/MPI/source/src/G4MPIextraWorker.cc
 
 RUN /bin/bash -c "source $G4WKDIR/entry-point.sh; \
 cd ${G4WKDIR}/g4${shortG4version}mpi-build && \
@@ -58,3 +58,7 @@ make -j`grep -c ^processor /proc/cpuinfo` &&\
 make install "
 
 RUN ls $G4WKDIR/geant4.${shortG4version}-install
+
+RUN if [ ! -e ${G4WKDIR}/src ];then mkdir ${G4WKDIR}/src;fi
+
+RUN mv geant4.${G4Version} ${G4WKDIR}/src
