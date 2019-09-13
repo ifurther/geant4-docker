@@ -36,3 +36,16 @@ make -j`grep -c ^processor /proc/cpuinfo` &&\
 make install 
 
 RUN ls $G4WKDIR/geant4.${shortG4version}-install
+
+RUN  echo  -e "\n\
+#!/bin/bash\n\
+set -e \n\
+\n\
+source $G4DIR/bin/geant4.sh\n\
+source $G4DIR/share/Geant4-$shortG4version/geant4make/geant4make.sh \n\
+\n\
+exec "$@" \n">$G4WKDIR/entry-point.sh
+
+RUN chmod +x $G4WKDIR/entry-point.sh
+
+RUN rm -rf ${G4WKDIR}/geant4.${shortG4version}-build
