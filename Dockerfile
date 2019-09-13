@@ -39,7 +39,6 @@ make install
 
 RUN ls $G4WKDIR/geant4.${shortG4version}-install
 
-<<<<<<< HEAD
 RUN  echo  -e "\n\
 #!/bin/bash\n\
 set -e \n\
