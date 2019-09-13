@@ -37,6 +37,6 @@ make install
 
 RUN ls $G4WKDIR/geant4.${shortG4version}-install
 
-RUN if [ ! -e ${G4WKDIR}/src ];then mkdir /src;fi
+RUN if [ ! -e /src ];then mkdir /src;fi
 
 RUN mv geant4.${G4Version} /src
