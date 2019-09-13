@@ -13,6 +13,7 @@ ENV shortG4version="10.5.1"
 
 RUN bash -c 'if [ ! -e /app ] ; then mkdir /app; fi'
 ENV G4WKDIR=/app
+ENV G4DIR=/app/geant4.${shortG4version}-install
 
 WORKDIR /app
 
@@ -26,10 +27,13 @@ RUN echo "G4WKDIR is: ${G4WKDIR}"
 #rm -rf geant4.${G4Version}.tar.gz; fi
 
 
-RUN cd ${G4WKDIR}/geant4.${shortG4version}-build && \
-cmake -DCMAKE_INSTALL_PREFIX=${G4DIR}/geant4.${shortG4version}-install \
--DGEANT4_USE_OPENGL_X11=ON -DGEANT4_INSTALL_DATA=ON \
--DGEANT4_USE_QT=ON -DGEANT4_USESYSTEM_ZLIB=ON -DGEANT4_USESYSTEM_EXPAT=ON ${G4WKDIR}/geant4.${G4Version} &&\
+RUN bash -c 'if [ ! -e ${G4WKDIR}/g4${shortG4version}mpi-build ]; then mkdir ${G4WKDIR}/g4${shortG4version}mpi-build; fi'
+
+
+RUN source $G4DIR/bin/geant4.sh &&\
+RUN cd ${G4WKDIR}/g4${shortG4version}mpi-build && \
+cmake -DCMAKE_INSTALL_PREFIX=${G4DIR} \
+ ${G4DIR}/share/examples/extended/parallel/MPI/source &&\
 make -j`grep -c ^processor /proc/cpuinfo` &&\
 make install 
 
