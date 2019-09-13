@@ -19,6 +19,7 @@ ENV G4WKDIR=/app
 ENV G4DIR=/app/geant4.${shortG4version}-install
 
 WORKDIR /app
+ENV SoftwareSRC=/src
 
 RUN echo "G4WKDIR is: ${G4WKDIR}"
 
@@ -61,6 +62,6 @@ RUN ls $G4WKDIR/geant4.${shortG4version}-install
 
 RUN if [ ! -e ${G4WKDIR}/src ];then mkdir ${G4WKDIR}/src;fi
 
-RUN mv geant4.${G4Version} /src
+RUN mv geant4.${G4Version} $SoftwareSRC
 
 RUN rm -rf g410.5.1mpi-build geant4.10.5.1-build
