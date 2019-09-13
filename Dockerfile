@@ -10,6 +10,9 @@ ENV shortG4version="10.5.1"
 #RUN export shortG4version=`echo $G4Version |sed 's/p//g'|sed 's/\.0/./g'`
 
 #RUN export G4WKDIR=$(pwd)
+RUN apt-get update &&\
+apt-get install -y openmpi-bin openmpi-doc libopenmpi-dev &&\
+apt-get clean all
 
 RUN bash -c 'if [ ! -e /app ] ; then mkdir /app; fi'
 ENV G4WKDIR=/app
