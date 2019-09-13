@@ -1,4 +1,4 @@
-ARG IMAGE_FROM=base
+ARG IMAGE_FROM=10.5.1-onlydata
 
 FROM ifurther/geant4:${IMAGE_FROM}
 LABEL maintainer="Further Lin <geant4ro.ot@gmail.com>"
@@ -9,10 +9,11 @@ ENV G4Version="10.05.p01"
 ENV shortG4version="10.5.1"
 #RUN export shortG4version=`echo $G4Version |sed 's/p//g'|sed 's/\.0/./g'`
 
-#RUN export G4DIR=$(pwd)
+#RUN export G4WKDIR=$(pwd)
 
 RUN bash -c 'if [ ! -e /app ] ; then mkdir /app; fi'
 ENV G4WKDIR=/app
+
 WORKDIR /app
 
 RUN echo "G4WKDIR is: ${G4WKDIR}"
@@ -28,11 +29,9 @@ rm -rf geant4.${G4Version}.tar.gz; fi
 RUN bash -c 'if [ -e geant4.${shortG4version}-install ] ; then mkdir ${G4WKDIR}/geant4.${shortG4version}-build; else mkdir ${G4DIR}/geant4.${shortG4version}-{build,install}; fi'
 
 RUN cd ${G4WKDIR}/geant4.${shortG4version}-build && \
-cmake -DCMAKE_INSTALL_PREFIX=${G4WKDIR}/geant4.${shortG4version}-install \
+cmake -DCMAKE_INSTALL_PREFIX=${G4DIR}/geant4.${shortG4version}-install \
 -DGEANT4_USE_OPENGL_X11=ON -DGEANT4_INSTALL_DATA=ON \
--DGEANT4_USE_QT=ON -DGEANT4_USESYSTEM_ZLIB=ON -DGEANT4_USESYSTEM_EXPAT=ON ${G4WKDIR}/geant4.${G4Version}
-
-RUN cd ${G4WKDIR}/geant4.${shortG4version}-build && \
+-DGEANT4_USE_QT=ON -DGEANT4_USESYSTEM_ZLIB=ON -DGEANT4_USESYSTEM_EXPAT=ON ${G4WKDIR}/geant4.${G4Version} &&\
 make -j`grep -c ^processor /proc/cpuinfo` &&\
 make install 
 
