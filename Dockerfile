@@ -32,15 +32,16 @@ RUN echo "G4WKDIR is: ${G4WKDIR}"
 
 RUN bash -c 'if [ ! -e ${G4WKDIR}/g4${shortG4version}mpi-build ]; then mkdir ${G4WKDIR}/g4${shortG4version}mpi-build; fi'
 
-RUN cat $G4WKDIR/entry-point.sh <<EOF
-#!/bin/bash
-set -e 
+RUN echo  '\n\
+#!/bin/bash\n\
+set -e \n\
+\n\
+source $G4DIR/bin/geant4.sh\n\
+\n\
+exec "$@" \n'\
+>$G4WKDIR/entry-point.sh
 
-source $G4DIR/bin/geant4.sh
-
-exec "$@"
-EOF
-
+RUN chmod +x $G4WKDIR/entry-point.sh
 
 RUN /bin/bash -c "$G4DIR/bin/geant4.sh"
 
