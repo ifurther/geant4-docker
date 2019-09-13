@@ -62,3 +62,5 @@ RUN ls $G4WKDIR/geant4.${shortG4version}-install
 RUN if [ ! -e ${G4WKDIR}/src ];then mkdir ${G4WKDIR}/src;fi
 
 RUN mv geant4.${G4Version} ${G4WKDIR}/src
+
+RUN rm -rf g410.5.1mpi-build geant4.10.5.1-build
