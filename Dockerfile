@@ -11,7 +11,7 @@ ENV shortG4version="10.5.1"
 
 #RUN export G4DIR=$(pwd)
 
-RUN bash -c 'if [ -e /app ] ; then mkdir /app; fi'
+RUN bash -c 'if [ ! -e /app ] ; then mkdir /app; fi'
 ENV G4DIR=/app
 WORKDIR /app
 
