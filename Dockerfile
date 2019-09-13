@@ -29,4 +29,4 @@ RUN cd ${G4DIR}/geant4.${shortG4version}-build && \
 make -j`grep -c ^processor /proc/cpuinfo` &&\
 make install 
 
-RUN ls $G4DIR/geant4.${G4Version}-install
+RUN ls $G4DIR/geant4.${shortG4version}-install
