@@ -37,18 +37,24 @@ RUN echo  '\n\
 set -e \n\
 \n\
 source $G4DIR/bin/geant4.sh\n\
+source $G4DIR/share/Geant4-${shortG4version}/geant4make/geant4make.sh \n\
 \n\
 exec "$@" \n'\
 >$G4WKDIR/entry-point.sh
 
-RUN chmod +x $G4WKDIR/entry-point.sh
+RUN chmod +x $G4WKDIR/entry-point.sh 
 
-RUN /bin/bash -c "$G4DIR/bin/geant4.sh"
+# only for Geant4-10.5.1
+RUN sed -i 's/g4ios/G4ios/g'  G4DIR/share/Geant4-${shortG4version}/examples/extended/parallel/MPI/source/src/G4MPIextraWorker.cc
 
-RUN cd ${G4WKDIR}/g4${shortG4version}mpi-build && \
-cmake -DCMAKE_INSTALL_PREFIX=${G4DIR} \
- ${G4DIR}/share/examples/extended/parallel/MPI/source &&\
+RUN /bin/bash -c "source $G4WKDIR/entry-point.sh; \
+cd ${G4WKDIR}/g4${shortG4version}mpi-build && \
+cmake \ 
+-DGeant4_DIR=${G4DIR}/lib/Geant4-${shortG4version} \
+-DG4mpi_DIR=${G4DIR}/lib/Geant4-${shortG4version} \
+-DCMAKE_INSTALL_PREFIX=${G4DIR} \
+ ${G4DIR}/share/Geant4-${shortG4version}/examples/extended/parallel/MPI/source &&\
 make -j`grep -c ^processor /proc/cpuinfo` &&\
-make install 
+make install "
 
 RUN ls $G4WKDIR/geant4.${shortG4version}-install
