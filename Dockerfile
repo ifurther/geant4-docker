@@ -36,3 +36,7 @@ make -j`grep -c ^processor /proc/cpuinfo` &&\
 make install 
 
 RUN ls $G4WKDIR/geant4.${shortG4version}-install
+
+RUN if [ ! -e ${G4WKDIR}/src ];then mkdir ${G4WKDIR}/src;fi
+
+RUN mv geant4.${G4Version} ${G4WKDIR}/src
