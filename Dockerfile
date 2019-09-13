@@ -11,7 +11,9 @@ ENV shortG4version="10.5.1"
 
 #RUN export G4WKDIR=$(pwd)
 
-RUN bash -c 'if [ ! -e /app ] ; then mkdir /app; fi'
+SHELL ["/bin/bash", "-c"] 
+RUN if [ ! -e /app ] ; then mkdir /app; fi
+RUN if [ ! -e /src ];then mkdir /src;fi
 ENV G4WKDIR=/app
 
 WORKDIR /app
@@ -37,6 +39,7 @@ make install
 
 RUN ls $G4WKDIR/geant4.${shortG4version}-install
 
+<<<<<<< HEAD
 RUN  echo  -e "\n\
 #!/bin/bash\n\
 set -e \n\
@@ -49,3 +52,6 @@ exec "$@" \n">$G4WKDIR/entry-point.sh
 RUN chmod +x $G4WKDIR/entry-point.sh
 
 RUN rm -rf ${G4WKDIR}/geant4.${shortG4version}-build
+
+RUN mv geant4.${G4Version} /src
+
