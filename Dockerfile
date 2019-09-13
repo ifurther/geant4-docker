@@ -11,7 +11,9 @@ ENV shortG4version="10.5.1"
 
 #RUN export G4WKDIR=$(pwd)
 
-RUN bash -c 'if [ ! -e /app ] ; then mkdir /app; fi'
+SHELL ["/bin/bash", "-c"] 
+RUN if [ ! -e /app ] ; then mkdir /app; fi
+RUN if [ ! -e /src ];then mkdir /src;fi
 ENV G4WKDIR=/app
 
 WORKDIR /app
@@ -36,7 +38,5 @@ make -j`grep -c ^processor /proc/cpuinfo` &&\
 make install 
 
 RUN ls $G4WKDIR/geant4.${shortG4version}-install
-
-RUN if [ ! -e /src ];then mkdir /src;fi
 
 RUN mv geant4.${G4Version} /src
