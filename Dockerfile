@@ -1,7 +1,7 @@
 ARG IMAGE_FROM=latest
 
 FROM ubuntu:${IMAGE_FROM}
-LABEL maintainer="Further Lin <geant4ro.ot@gmail.com>"
+LABEL maintainer="Further Lin <55025025+ifurther@users.noreply.github.com>"
 
 RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1tw.\2/" /etc/apt/sources.list && \
 	apt-get update && apt-get upgrade --yes
