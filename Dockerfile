@@ -1,4 +1,4 @@
-ARG IMAGE_FROM=10.5.1-onlydata
+ARG IMAGE_FROM=base
 
 FROM ifurther/geant4:${IMAGE_FROM}
 LABEL maintainer="Further Lin <55025025+ifurther@users.noreply.github.com>"
