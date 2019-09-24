@@ -5,8 +5,10 @@ LABEL maintainer="Further Lin <55025025+ifurther@users.noreply.github.com>"
 
 RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1tw.\2/" /etc/apt/sources.list 
 	
-ENV G4Version="10.05.p01"
-ENV shortG4version="10.5.1"
+ARG build_G4Version="10.05.p01"
+ARG build_shortG4version="10.5.1"	
+ENV G4Version=$build_G4Version
+ENV shortG4version=$build_shortG4version
 #RUN export shortG4version=`echo $G4Version |sed 's/p//g'|sed 's/\.0/./g'`
 
 #RUN export G4WKDIR=$(pwd)
@@ -46,7 +48,7 @@ exec "$@" \n'\
 RUN chmod +x $G4WKDIR/entry-point.sh 
 
 # only for Geant4-10.5.1
-RUN sed -i 's/g4ios/G4ios/g'  $G4DIR/share/Geant4-${shortG4version}/examples/extended/parallel/MPI/source/src/G4MPIextraWorker.cc
+#RUN sed -i 's/g4ios/G4ios/g'  $G4DIR/share/Geant4-${shortG4version}/examples/extended/parallel/MPI/source/src/G4MPIextraWorker.cc
 
 RUN /bin/bash -c "source $G4WKDIR/entry-point.sh; \
 cd ${G4WKDIR}/g4${shortG4version}mpi-build && \
@@ -60,4 +62,4 @@ make install "
 
 RUN ls $G4WKDIR/geant4.${shortG4version}-install
 
-RUN rm -rf g410.5.1mpi-build 
+RUN rm -rf g4${shortG4version}.1mpi-build 
