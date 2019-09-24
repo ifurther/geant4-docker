@@ -1,6 +1,8 @@
-ARG IMAGE_FROM=base
+#Geant4 
 
-FROM ifurther/geant4:${IMAGE_FROM}
+ARG CODE_VERSION=base
+FROM ifurther/geant4:$CODE_VERSION
+
 LABEL maintainer="Further Lin <55025025+ifurther@users.noreply.github.com>"
 
 RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1tw.\2/" /etc/apt/sources.list 
@@ -24,7 +26,7 @@ WORKDIR /app
 RUN echo "G4WKDIR is: ${G4WKDIR}"
 
 RUN bash -c 'mkdir -p ${G4WKDIR}/geant4.${shortG4version}-install/share/data/Geant4-${shortG4version}'
-ADD geant4.${shortG4version}.txz ${G4WKDIR}/
+#ADD geant4.${shortG4version}.txz ${G4WKDIR}/
 #ADD geant4.${G4Version}.tar.gz .
 RUN if [ ! -e geant4.${G4Version} ] ; then wget http://geant4-data.web.cern.ch/geant4-data/releases/geant4.${G4Version}.tar.gz; \
 tar zxvf geant4.${G4Version}.tar.gz -C ${G4WKDIR}; \
