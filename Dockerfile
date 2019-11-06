@@ -1,6 +1,6 @@
 ARG IMAGE_FROM=10.5.1-onlydata
 
-FROM ifurther/geant4:${IMAGE_FROM}
+FROM ifurther/geant4:${IMAGE_FROM} AS build-G4
 LABEL maintainer="Further Lin <55025025+ifurther@users.noreply.github.com>"
 
 RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1tw.\2/" /etc/apt/sources.list 
@@ -42,6 +42,21 @@ make install
 
 RUN ls $G4WKDIR/geant4.${shortG4version}-install
 
+#RUN rm -rf ${G4WKDIR}/geant4.${shortG4version}-build
+
+RUN mv geant4.${G4Version} /src
+
+# final stage
+FROM ifurther/geant4:${IMAGE_FROM}
+RUN if [ ! -e /app ] ; then mkdir /app; fi
+RUN if [ ! -e /src ];then mkdir /src;fi
+
+WORKDIR /app
+ENV G4WKDIR=/app
+
+COPY --from=build-G4 /src/* /src
+COPY --from=build-G4 /app/${G4DIR}/geant4.${shortG4version}-install /app
+
 RUN  echo  -e "\n\
 #!/bin/bash\n\
 set -e \n\
@@ -53,7 +68,4 @@ exec "$@" \n">$G4WKDIR/entry-point.sh
 
 RUN chmod +x $G4WKDIR/entry-point.sh
 
-RUN rm -rf ${G4WKDIR}/geant4.${shortG4version}-build
-
-RUN mv geant4.${G4Version} /src
-
+ENTRYPOINT ["/app"]
