@@ -1,5 +1,5 @@
 Bootstrap: library
-From: centos:7.7
+From: library/default/centos:7.7
 
 %labels
 MAINTAINER Further Lin
