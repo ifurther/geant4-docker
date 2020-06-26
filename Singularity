@@ -1,7 +1,5 @@
-Bootstrap: yum
-OSVersion: 7
-MirrorURL: http://mirror.centos.org/centos-%{OSVERSION}/%{OSVERSION}/os/$basearch/
-Include: yum
+Bootstrap: library
+From: centos:7.7
 
 %labels
 MAINTAINER Further Lin
