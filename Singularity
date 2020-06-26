@@ -39,8 +39,10 @@ cmake -DCMAKE_INSTALL_PREFIX=${G4DIR}/geant4.${shortG4version}-install \
 -DGEANT4_USE_QT=ON -DGEANT4_USESYSTEM_ZLIB=ON -DGEANT4_USESYSTEM_EXPAT=ON ${G4WKDIR}/geant4.${G4Version} &&\
 make -j`grep -c ^processor /proc/cpuinfo` &&\
 make install 
+
 rm -rf ${G4WKDIR}/geant4.${shortG4version}-build
 mv geant4.${G4Version} /src
+
 echo  -e "\n\
 #!/bin/bash\n\
 set -e \n\
