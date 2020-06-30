@@ -1,4 +1,4 @@
-ARG IMAGE_FROM=latest
+ARG IMAGE_FROM=7.7
 
 FROM centos:${IMAGE_FROM}
 LABEL maintainer="Further Lin <55025025+ifurther@users.noreply.github.com>"
