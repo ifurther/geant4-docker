@@ -74,4 +74,4 @@ exec "$@" \n">$G4WKDIR/entry-point.sh
 
 RUN chmod +x $G4WKDIR/entry-point.sh
 
-ENTRYPOINT ["/app"]
+ENTRYPOINT ["/app/entry-point.sh"]
