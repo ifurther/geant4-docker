@@ -1,12 +1,12 @@
-ARG IMAGE_FROM=10.5.1
+ARG IMAGE_FROM=10.6.2
 
 FROM ifurther/geant4:${IMAGE_FROM}
 LABEL maintainer="Further Lin <55025025+ifurther@users.noreply.github.com>"
 
 RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1tw.\2/" /etc/apt/sources.list 
 	
-ARG build_G4Version="10.05.p01"
-ARG build_shortG4version="10.5.1"	
+ARG build_G4Version="10.06.p02"
+ARG build_shortG4version="10.6.2"	
 ENV G4Version=$build_G4Version
 ENV shortG4version=$build_shortG4version
 #RUN export shortG4version=`echo $G4Version |sed 's/p//g'|sed 's/\.0/./g'`
