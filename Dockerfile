@@ -48,6 +48,12 @@ RUN mv geant4.${G4Version} /src
 
 # final stage
 FROM ifurther/geant4:${IMAGE_FROM}
+
+ARG build_G4Version="10.06.p02"
+ARG build_shortG4version="10.6.2"	
+ENV G4Version=$build_G4Version
+ENV shortG4version=$build_shortG4version
+
 RUN if [ ! -e /app ] ; then mkdir /app; fi
 RUN if [ ! -e /src ];then mkdir /src;fi
 
