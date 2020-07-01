@@ -60,8 +60,8 @@ RUN if [ ! -e /src ];then mkdir /src;fi
 WORKDIR /app
 ENV G4WKDIR=/app
 
-COPY --from=build-G4 /src/* /src
-COPY --from=build-G4 ${G4WKDIR}/geant4.${shortG4version}-install /app
+COPY --from=build-G4 /src/* /src/
+COPY --from=build-G4 ${G4WKDIR}/geant4.${shortG4version}-install/* /app/geant4.${shortG4version}-install/
 
 RUN  echo  -e "\n\
 #!/bin/bash\n\
