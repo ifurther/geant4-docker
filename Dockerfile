@@ -61,14 +61,14 @@ WORKDIR /app
 ENV G4WKDIR=/app
 
 COPY --from=build-G4 /src/* /src/
-COPY --from=build-G4 ${G4WKDIR}/geant4.${shortG4version}-install/* /app/geant4.${shortG4version}-install/
+COPY --from=build-G4 ${G4WKDIR}/geant4.${shortG4version}-install/ /app/geant4.${shortG4version}-install/
 
 RUN  echo  -e "\n\
 #!/bin/bash\n\
 set -e \n\
 \n\
-source $G4DIR/bin/geant4.sh\n\
-source $G4DIR/share/Geant4-$shortG4version/geant4make/geant4make.sh \n\
+source $G4WKDIR/bin/geant4.sh\n\
+source $G4WKDIR/share/Geant4-$shortG4version/geant4make/geant4make.sh \n\
 \n\
 exec "$@" \n\
 if <condition> ; then \n\
