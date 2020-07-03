@@ -25,25 +25,8 @@ ENV SoftwareSRC=/src
 
 RUN echo "G4WKDIR is: ${G4WKDIR}"
 
-#RUN bash -c 'mkdir -p ${G4WKDIR}/geant4.${shortG4version}-install/share/data/Geant4-${shortG4version}'
-#ADD Geant4-${shortG4version}/*.tar.gz ${G4WKDIR}/geant4.${shortG4version}-install/share/Geant4-${shortG4version}/data/
-#ADD geant4.${G4Version}.tar.gz .
-#RUN if [ ! -e geant4.${G4Version} ] ; then wget http://geant4-data.web.cern.ch/geant4-data/releases/geant4.${G4Version}.tar.gz; \
-#tar zxvf geant4.${G4Version}.tar.gz -C ${G4WKDIR}; \
-#rm -rf geant4.${G4Version}.tar.gz; fi
-
-
 RUN bash -c 'if [ ! -e ${G4WKDIR}/g4${shortG4version}mpi-build ]; then mkdir ${G4WKDIR}/g4${shortG4version}mpi-build; fi'
 
-RUN echo  '\n\
-#!/bin/bash\n\
-set -e \n\
-\n\
-source $G4DIR/bin/geant4.sh\n\
-source $G4DIR/share/Geant4-${shortG4version}/geant4make/geant4make.sh \n\
-\n\
-exec "$@" \n'\
->$G4WKDIR/entry-point.sh
 
 RUN chmod +x $G4WKDIR/entry-point.sh 
 
@@ -62,4 +45,4 @@ make install "
 
 RUN ls $G4WKDIR/geant4.${shortG4version}-install
 
-RUN rm -rf g4${shortG4version}.1mpi-build 
+RUN rm -rf g4${shortG4version}mpi-build 
