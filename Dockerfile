@@ -65,12 +65,12 @@ COPY --from=build-G4 ${G4WKDIR}/geant4.${shortG4version}-install/ /app/geant4.${
 
 RUN  echo  -e "\n\
 #!/bin/bash\n\
-set -e \n\
+set -e\n\
 \n\
 source $G4WKDIR/bin/geant4.sh\n\
 source $G4WKDIR/share/Geant4-$shortG4version/geant4make/geant4make.sh \n\
 \n\
-exec "$@" \n\
+exec \"\$@\"\n\
 if <condition> ; then \n\
   echo "Game over!" \n\
   exit 1 \n\
