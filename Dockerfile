@@ -76,8 +76,8 @@ exec \"\$@\"\n\
 if <condition> ; then \n\
   echo "Game over!" \n\
   exit 1 \n\
-fi">$G4WKDIR/entry-point.sh
+fi">$G4WKDIR/entry-point.sh'
 
-RUN chmod +x $G4WKDIR/entry-point.sh'
+RUN chmod +x $G4WKDIR/entry-point.sh
 
 ENTRYPOINT ["/app/entry-point.sh"]
