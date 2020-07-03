@@ -63,7 +63,7 @@ ENV G4WKDIR=/app
 COPY --from=build-G4 /src/* /src/
 COPY --from=build-G4 ${G4WKDIR}/geant4.${shortG4version}-install/ /app/geant4.${shortG4version}-install/
 
-RUN  echo  -e "\n\
+RUN  bash -c 'echo  -e "\n\
 #!/bin/bash\n\
 set -e\n\
 \n\
@@ -76,6 +76,6 @@ if <condition> ; then \n\
   exit 1 \n\
 fi">$G4WKDIR/entry-point.sh
 
-RUN chmod +x $G4WKDIR/entry-point.sh
+RUN chmod +x $G4WKDIR/entry-point.sh'
 
 ENTRYPOINT ["/app/entry-point.sh"]
