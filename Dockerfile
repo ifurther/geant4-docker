@@ -23,6 +23,8 @@ WORKDIR /app
 
 RUN echo "G4WKDIR is: ${G4WKDIR}"
 
+RUN mkdir /cvmfs
+
 RUN bash -c 'mkdir -p ${G4WKDIR}/geant4.${shortG4version}-install/share/data/Geant4-${shortG4version}'
 #ADD Geant4-${shortG4version}/*.tar.gz ${G4WKDIR}/geant4.${shortG4version}-install/share/Geant4-${shortG4version}/data/
 #ADD geant4.${G4Version}.tar.gz .
@@ -47,7 +49,7 @@ RUN ls $G4WKDIR/geant4.${shortG4version}-install
 RUN mv geant4.${G4Version} /src
 
 # final stage
-FROM ifurther/geant4:${IMAGE_FROM}
+FROM ifurther/geant4:${IMAGE_FROM} AS G4-app
 
 ARG build_G4Version="10.06.p02"
 ARG build_shortG4version="10.6.2"	
