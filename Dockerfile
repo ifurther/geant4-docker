@@ -72,7 +72,8 @@ set -e\n\
 source $G4WKDIR/bin/geant4.sh\n\
 source $G4WKDIR/share/Geant4-$shortG4version/geant4make/geant4make.sh \n\
 \n\
-exec \"\$@\"\n\">$G4WKDIR/entry-point.sh'
+exec \"\$@\"\n\
+">$G4WKDIR/entry-point.sh'
 
 RUN chmod +x $G4WKDIR/entry-point.sh
 
