@@ -18,6 +18,7 @@ SHELL ["/bin/bash", "-c"]
 RUN if [ ! -e /app ] ; then mkdir /app; fi
 RUN if [ ! -e /src ];then mkdir /src;fi
 ENV G4WKDIR=/app
+ENV G4DIR=${G4WKDIR}/geant4.${shortG4version}-install
 
 WORKDIR /app
 
@@ -25,7 +26,7 @@ RUN echo "G4WKDIR is: ${G4WKDIR}"
 
 RUN mkdir /cvmfs
 
-RUN bash -c 'mkdir -p ${G4WKDIR}/geant4.${shortG4version}-install/share/data/Geant4-${shortG4version}'
+RUN bash -c 'mkdir -p ${G4DIR}/share/data/Geant4-${shortG4version}'
 #ADD Geant4-${shortG4version}/*.tar.gz ${G4WKDIR}/geant4.${shortG4version}-install/share/Geant4-${shortG4version}/data/
 #ADD geant4.${G4Version}.tar.gz .
 RUN if [ ! -e geant4.${G4Version} ] ; then wget https://geant4-data.web.cern.ch/geant4-data/releases/geant4.${G4Version}.tar.gz; \
@@ -62,15 +63,16 @@ RUN if [ ! -e /src ];then mkdir /src;fi
 
 WORKDIR /app
 ENV G4WKDIR=/app
+ENV G4DIR=${G4WKDIR}/geant4.${shortG4version}-install
 
 COPY --from=build-G4 /src/* /src/
-COPY --from=build-G4 ${G4WKDIR}/geant4.${shortG4version}-install/ /app/geant4.${shortG4version}-install/
+COPY --from=build-G4 ${G4DIR}/ ${G4DIR}/
 
 RUN  bash -c 'echo  -e "#!/bin/bash\n\
 set -e\n\
 \n\
-source $G4WKDIR/bin/geant4.sh\n\
-source $G4WKDIR/share/Geant4-$shortG4version/geant4make/geant4make.sh \n\
+source $G4DIR/bin/geant4.sh\n\
+source $G4DIR/share/Geant4-$shortG4version/geant4make/geant4make.sh\n\
 \n\
 exec \"\$@\"\n\
 ">$G4WKDIR/entry-point.sh'
