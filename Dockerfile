@@ -16,7 +16,7 @@ ENV shortG4version=$build_shortG4version
 
 SHELL ["/bin/bash", "-c"] 
 RUN if [ ! -e /app ] ; then mkdir /app; fi
-RUN if [ ! -e /src ];then mkdir /src;fi
+RUN if [ ! -e /app/src ];then mkdir /app/src;fi
 ENV G4WKDIR=/app
 ENV G4DIR=${G4WKDIR}/geant4.${shortG4version}-install
 
@@ -31,7 +31,7 @@ RUN bash -c 'mkdir -p ${G4DIR}/share/data/Geant4-${shortG4version}'
 #ADD geant4.${G4Version}.tar.gz .
 RUN if [ ! -e geant4.${G4Version} ] ; then wget https://geant4-data.web.cern.ch/geant4-data/releases/geant4.${G4Version}.tar.gz; \
 tar zxvf geant4.${G4Version}.tar.gz -C ${G4WKDIR}; \
-rm -rf geant4.${G4Version}.tar.gz; fi
+mv geant4.${G4Version}.tar.gz /app/src; fi
 
 
 RUN bash -c 'if [ -e geant4.${shortG4version}-install ] ; then mkdir ${G4WKDIR}/geant4.${shortG4version}-build; else mkdir ${G4DIR}/geant4.${shortG4version}-{build,install}; fi'
@@ -48,8 +48,6 @@ RUN ls $G4WKDIR/geant4.${shortG4version}-install
 
 #RUN rm -rf ${G4WKDIR}/geant4.${shortG4version}-build
 
-RUN mv geant4.${G4Version} /src
-
 # final stage
 FROM ifurther/geant4:${IMAGE_FROM} AS G4-app
 
@@ -65,7 +63,7 @@ WORKDIR /app
 ENV G4WKDIR=/app
 ENV G4DIR=${G4WKDIR}/geant4.${shortG4version}-install
 
-COPY --from=build-G4 /src/* /src/
+COPY --from=build-G4 /app/src/* /app/src/
 COPY --from=build-G4 ${G4DIR}/ ${G4DIR}/
 
 RUN  bash -c 'echo  -e "#!/bin/bash\n\
