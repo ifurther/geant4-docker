@@ -29,7 +29,7 @@ RUN mkdir /cvmfs
 RUN bash -c 'mkdir -p ${G4DIR}/share/data/Geant4-${shortG4version}'
 #ADD Geant4-${shortG4version}/*.tar.gz ${G4WKDIR}/geant4.${shortG4version}-install/share/Geant4-${shortG4version}/data/
 #ADD geant4.${G4Version}.tar.gz .
-RUN if [ ! -e geant4.${G4Version} ] ; then wget https://geant4-data.web.cern.ch/geant4-data/releases/geant4.${G4Version}.tar.gz; \
+RUN if [ ! -e geant4.${G4Version} ] ; then wget https://geant4-data.web.cern.ch/releases/geant4.${G4Version}.tar.gz; \
 tar zxvf geant4.${G4Version}.tar.gz -C ${G4WKDIR}; \
 mv geant4.${G4Version}.tar.gz /app/src; fi
 
