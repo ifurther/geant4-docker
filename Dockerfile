@@ -64,7 +64,7 @@ WORKDIR /app
 ENV G4WKDIR=/app
 ENV G4DIR=${G4WKDIR}/geant4.${shortG4version}-install
 
-COPY --from=build-G4 /app/src/geant4.${build_G4Version}/* /app/src/geant4.${build_G4Version}
+COPY --from=build-G4 /app/src/geant4.${G4Version}.tar.gz /app/src/
 COPY --from=build-G4 ${G4DIR}/ ${G4DIR}/
 
 RUN  bash -c 'echo  -e "#!/bin/bash\n\
