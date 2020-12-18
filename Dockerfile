@@ -16,7 +16,7 @@ RUN apt-get install -y libexpat1-dev libgl1-mesa-dev \
 libglu1-mesa-dev libxt-dev xorg-dev build-essential \
 libxerces-c-dev libxmu-dev expat libfreetype6-dev  \
 cmake-curses-gui wget libxext-dev qt5-default \
-git dpkg-dev libfftw3-dev libftgl-dev python-dev \
+git dpkg-dev libfftw3-dev libftgl-dev python3-dev \
 libexpat-dev zlib1g zlib1g-dev tcl tk
 
 RUN apt-get clean all
