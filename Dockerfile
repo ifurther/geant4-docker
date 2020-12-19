@@ -33,6 +33,8 @@ RUN if [ ! -e geant4.${G4Version} ] ; then wget https://geant4-data.web.cern.ch/
 tar zxvf geant4.${G4Version}.tar.gz -C ${G4WKDIR}; \
 mv geant4.${G4Version}.tar.gz /app/src; fi
 
+RUN ls /app/src
+
 
 RUN bash -c 'if [ -e geant4.${shortG4version}-install ] ; then mkdir ${G4WKDIR}/geant4.${shortG4version}-build; else mkdir ${G4DIR}/geant4.${shortG4version}-{build,install}; fi'
 
