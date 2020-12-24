@@ -5,8 +5,8 @@ LABEL maintainer="Further Lin <55025025+ifurther@users.noreply.github.com>"
 
 RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1tw.\2/" /etc/apt/sources.list 
 	
-ARG build_G4Version="10.06.p03"
-ARG build_shortG4version="10.6.3"	
+ARG build_G4Version="10.07"
+ARG build_shortG4version="10.7"	
 ENV G4Version=$build_G4Version
 ENV shortG4version=$build_shortG4version
 
