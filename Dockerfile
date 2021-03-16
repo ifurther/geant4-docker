@@ -1,4 +1,4 @@
-ARG IMAGE_FROM=10.6.2
+ARG IMAGE_FROM=10.7.1
 
 FROM ifurther/geant4:${IMAGE_FROM}
 LABEL maintainer="Further Lin <55025025+ifurther@users.noreply.github.com>"
