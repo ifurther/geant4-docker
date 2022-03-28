@@ -27,5 +27,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ifurther/geant4:base
+        run: docker build . --file Dockerfile.base --tag ifurther/geant4:base
 
