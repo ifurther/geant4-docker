@@ -61,7 +61,7 @@ RUN ls $G4WKDIR/geant4.${shortG4version}-install
 # final stage
 FROM build-base AS G4-app
 
-COPY --from=build-G4 /app/src/geant4.${G4Version}.tar.gz /app/src/
+COPY --from=build-G4 /app/src/geant4-v${shortG4version}.tar.gz /app/src/
 COPY --from=build-G4 ${G4DIR}/ ${G4DIR}/
 
 RUN  bash -c 'echo  -e "#!/bin/bash\n\
