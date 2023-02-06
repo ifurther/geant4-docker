@@ -44,7 +44,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        file: "{context}/Dockerfile.base"
+        file: "${context}/Dockerfile.base"
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
