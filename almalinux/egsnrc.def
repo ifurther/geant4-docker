@@ -1,0 +1,22 @@
+Bootstrap: library
+From:  almalinux:9.0
+Stage: build
+
+%post
+#dnf config-manager --set-enabled crb
+#dnf install -y elrepo-release
+dnf install -y epel-release
+dnf install -y make gcc gcc-fortran gcc-c++ git \
+               tk tcl \
+               qt5-qtbase-devel \
+               motif-devel grace-devel
+mkdir -p /mcs/egsnrc
+cd /mcs/egsnrc
+git clone https://github.com/nrc-cnrc/EGSnrc.git
+cd EGSnrc
+echo -- | ./HEN_HOUSE/scripts/configure
+
+%environment
+    export EGS_HOME=/mcs/egsnrc
+    export EGS_CONFIG=/mcs/egsnrc
+    export HEN_HOUSE=/mcs/egsnrc/HEN_HOUSE

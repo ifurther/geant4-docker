@@ -1,0 +1,26 @@
+Bootstrap: library
+From:  almalinux:9.0
+Stage: build
+
+%post
+#dnf config-manager --set-enabled crb
+#dnf install -y elrepo-release
+dnf install -y 'dnf-command(config-manager)'
+dnf install -y epel-release wget
+/usr/bin/crb enable
+
+wget https://raw.githubusercontent.com/root-project/root-docker/master/alma9/packages
+sed -i 's/curl//g' packages
+dnf install -y $(cat packages)
+
+mkdir -p /mcs
+ROOT_BIN=root_v6.30.02.Linux-almalinux9.3-x86_64-gcc11.4.tar.gz
+wget https://root.cern/download/${ROOT_BIN}
+tar -xzvf ${ROOT_BIN}
+rm -f /${ROOT_BIN}
+echo /mcs/root/lib >> /etc/ld.so.conf
+
+mkdir -p /mcs/geant4
+cd /mcs/geant4
+wget https://cern.ch/geant4-data/releases/lib4.11.2.p01/Linux-g++11.4.1-Alma9.tar.gz
+tar -xzvf Linux-g++11.4.1-Alma9.tar.gz
