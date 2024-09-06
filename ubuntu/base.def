@@ -1,0 +1,23 @@
+Bootstrap: library
+From: ubuntu:jammy
+
+%post
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo $TZ > /etc/timezone
+    apt-get update
+
+    apt-get install -y libexpat1-dev libgl1-mesa-dev \
+        libglu1-mesa-dev libxt-dev xorg-dev build-essential \
+        libxerces-c-dev libxmu-dev expat libfreetype6-dev  \
+        cmake-curses-gui wget libxext-dev \
+        qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools \
+        git dpkg-dev libfftw3-dev libftgl-dev python3-dev \
+        libexpat-dev zlib1g zlib1g-dev tcl tk
+
+    apt-get clean all
+%labels
+    Version v0.0.1
+    OWNER iifurther
+
+%help
+    This is a base container used to illustrate a def file.
