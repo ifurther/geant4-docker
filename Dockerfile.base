@@ -1,4 +1,4 @@
-ARG IMAGE_FROM=focal
+ARG IMAGE_FROM=jammy
 
 FROM ubuntu:${IMAGE_FROM}
 LABEL maintainer="Further Lin <55025025+ifurther@users.noreply.github.com>"
@@ -13,11 +13,12 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
 RUN apt-get update
 
 RUN apt-get install -y libexpat1-dev libgl1-mesa-dev \
-libglu1-mesa-dev libxt-dev xorg-dev build-essential \
-libxerces-c-dev libxmu-dev expat libfreetype6-dev  \
-cmake-curses-gui wget libxext-dev qt5-default \
-git dpkg-dev libfftw3-dev libftgl-dev python3-dev \
-libexpat-dev zlib1g zlib1g-dev tcl tk pybind11
+        libglu1-mesa-dev libxt-dev xorg-dev build-essential \
+        libxerces-c-dev libxmu-dev expat libfreetype6-dev  \
+        cmake-curses-gui wget libxext-dev \
+        qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools \
+        git dpkg-dev libfftw3-dev libftgl-dev python3-dev \
+        libexpat-dev zlib1g zlib1g-dev tcl tk
 
 RUN apt-get clean all
 
