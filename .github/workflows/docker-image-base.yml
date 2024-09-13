@@ -5,6 +5,7 @@ on:
     branches: ['master']
     paths:
       - 'Dockerfile.base'
+      - '.github/workflows/docker-image-base.yml'
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
