@@ -1,8 +1,10 @@
 name: Docker Base Image CI
 
 on:
-  schedule:
-    - cron: "00 12 2 1-12 *"
+  push:
+    branches: ['master']
+    paths:
+      - 'Dockerfile.base'
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
